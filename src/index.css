@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+
+@import "tailwindcss";
+@plugin "daisyui";
+
+body {
+  font-family: "Urbanist", sans-serif;
+  background: #EAECED;
+}
+
+.container {
+  max-width: 1310px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.menu a,
+.navbar-center a {
+  font-size: 16px;
+  font-weight: 600;
+  color: #606060;
+}
+
+.menu a.active,
+.navbar-center a.active {
+  color: #CAEB66;
+}
