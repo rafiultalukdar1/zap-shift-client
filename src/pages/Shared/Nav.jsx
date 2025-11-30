@@ -1,19 +1,37 @@
 import React from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import logo from '../../assets/images/navlogo.png'
 import { FaArrowRight } from 'react-icons/fa';
+import useAuth from '../../hooks/useAuth';
 
 const Nav = () => {
+
+    const { user, logOut } = useAuth();
 
     const links = (
         <>
             <NavLink to="/be-a-rider">Be a Rider</NavLink>
             <NavLink to="/pricing">Pricing</NavLink>
-            <NavLink to="/about-us">About Us</NavLink>
-            <NavLink to="/services">Services</NavLink>
+            <NavLink to="/send-parcel">Send Parcel</NavLink>
             <NavLink to="/coverage">Coverage</NavLink>
+            {
+                user && <>
+                    <NavLink to="/dashboard">My Dashboard</NavLink>
+                </>
+            }
         </>
     );
+
+    // Log Out
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                
+            })
+            .catch(error => {
+                console.log(error)
+            });
+    };
 
 
     return (
@@ -38,11 +56,16 @@ const Nav = () => {
                             </nav>
                         </div>
                         <div className='navbar-end'>
-                            <div className='flex items-center gap-4'>
-                                <button className='py-2.5 px-6 rounded-lg text-[18px] font-bold cursor-pointer bg-white border border-[#DADADA] text-[#606060]'>Sign In</button>
-                                <button className='py-2.5 px-6 rounded text-[18px] font-bold cursor-pointer bg-[#CAEB66] text-[#1F1F1F]'>Be a rider</button>
-                                <button className='h-12 w-12 bg-[#1F1F1F] rounded-full cursor-pointer text-[#CAEB66] flex items-center justify-center transform -rotate-45'><FaArrowRight size={20} /></button>
-                            </div>
+                            {
+                                user ? 
+                                <button onClick={() => handleLogOut()} className='py-2.5 px-6 rounded-lg text-[18px] font-bold cursor-pointer bg-white border border-[#DADADA] text-[#606060]'>LogOut</button>
+                                :
+                                <div className='flex items-center gap-4'>
+                                    <button className='py-2.5 px-6 rounded-lg text-[18px] font-bold cursor-pointer bg-white border border-[#DADADA] text-[#606060]'><Link to='/login'>Sign In</Link></button>
+                                    <button className='py-2.5 px-6 rounded text-[18px] font-bold cursor-pointer bg-[#CAEB66] text-[#1F1F1F]'><Link to='/be-a-rider'>Be a rider</Link></button>
+                                    <button className='h-12 w-12 bg-[#1F1F1F] rounded-full cursor-pointer text-[#CAEB66] flex items-center justify-center transform -rotate-45'><FaArrowRight size={20} /></button>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>

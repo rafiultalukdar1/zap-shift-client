@@ -25,3 +25,15 @@ body {
 .navbar-center a.active {
   color: #CAEB66;
 }
+
+.form-label {
+  @apply label text-[#0F172A] text-[18px] font-semibold pt-2;
+}
+
+.form-input {
+  @apply w-full px-[15px] py-2 text-[#71717A] text-[15px] outline-0 border border-[#bdd479a1] focus:border-[#CAEB66] bg-[#F3F3F3] rounded;
+}
+
+button {
+  cursor: pointer;
+}
