@@ -4,6 +4,7 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Login = () => {
 
@@ -12,6 +13,7 @@ const Login = () => {
     const {register, handleSubmit} = useForm();
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
     // Handle Login
     const handleLogin = (data) => {
@@ -29,10 +31,20 @@ const Login = () => {
     // Handle Google Login
     const handleGoogleSignIn = () => {
         signWithGoogle()
-            .then(() => {
+            .then((result) => {
                 // window.location.href = '/';
-                navigate(location.state || '/');
-                toast.success('Google login successful!')
+                toast.success('Google login successful!');
+                // create in db (Google Login)
+                const userInfo = {
+                    email: result.user.email,
+                    displayName: result.user.displayName,
+                    photoURL: result.user.photoURL,
+                };
+                axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        console.log('user data has been stord',res.data);
+                        navigate(location.state || '/');
+                    })
             })
             .catch(error => {
                 console.log(error)

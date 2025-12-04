@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../../hooks/useAuth';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import useAxiosSecure from '../../../hooks/useAxiosSecure';
 
 const Register = () => {
 
@@ -13,6 +14,7 @@ const Register = () => {
     const {createUser, signWithGoogle, updateUserProfile} = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
+    const axiosSecure = useAxiosSecure();
 
 
     // Handle Register
@@ -30,6 +32,20 @@ const Register = () => {
                 axios.post(img_Api_URL, formData)
                 .then(res => {
                     console.log('After img upload', res.data.data.display_url);
+                    // create in db
+                    const userInfo = {
+                        email : data.email,
+                        displayName : data.name,
+                        photoURL : res.data.data.display_url,
+                    }
+                    axiosSecure.post('/users', userInfo)
+                        .then(res => {
+                            if(res.data.insertedId) {
+                                console.log('user create in database')
+                            }
+                        })
+
+
                     // update profile
                     const userProfile = {
                         displayName : data.name,
@@ -54,9 +70,19 @@ const Register = () => {
     // Handle Google Login
     const handleGoogleSignIn = () => {
         signWithGoogle()
-            .then(() => {
-                navigate(location.state || '/');
+            .then((result) => {
                 toast.success('Google login successful!')
+                // create in db (Google Login)
+                const userInfo = {
+                    email: result.user.email,
+                    displayName: result.user.displayName,
+                    photoURL: result.user.photoURL,
+                };
+                axiosSecure.post('/users', userInfo)
+                    .then(res => {
+                        console.log('user data has been stord',res.data);
+                        navigate(location.state || '/');
+                    })
             })
             .catch(error => {
                 console.log(error)

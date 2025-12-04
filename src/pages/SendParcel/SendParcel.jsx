@@ -57,7 +57,7 @@ const SendParcel = () => {
                         if (res.data.insertedId) {
                             navigate('/dashboard/my-parcels')
                             Swal.fire({
-                                position: "top-end",
+                                position: "center",
                                 icon: "success",
                                 title: "Parcel created! Redirecting to payment...",
                                 showConfirmButton: false,

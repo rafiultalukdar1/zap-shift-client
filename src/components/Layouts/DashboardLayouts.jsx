@@ -29,8 +29,11 @@ const DashboardLayouts = () => {
                         <NavLink to='/'>
                             <img src={logo} alt="logo" />
                         </NavLink>
-                        <div className='mt-10 flex flex-col gap-2.5 text-[18px] font-semibold'>
+                        <div className='dashboard-active mt-10 flex flex-col gap-4 text-[18px] font-semibold'>
                             <NavLink to='/dashboard/my-parcels'>My Parcels</NavLink>
+                            <NavLink to='/dashboard/payment-history'>Payment History</NavLink>
+                            <NavLink to='/dashboard/approve-riders'>Approve Riders</NavLink>
+                            <NavLink to='/dashboard/users-management'>Users Management</NavLink>
                         </div>
                     </div>
                 </div>

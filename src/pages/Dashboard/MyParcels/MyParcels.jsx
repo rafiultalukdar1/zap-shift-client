@@ -53,7 +53,7 @@ const MyParcels = () => {
         <>
             <div className='max-w-[1550px] mx-auto py-[30px] md:py-[55px] px-[15px]'>
                 <h2 className='text-[22px] font-semibold pt-2 pb-4'>My Parcels : {parcels.length}</h2>
-                <div className="overflow-x-auto  rounded-box border border-base-content/5 bg-base-100">
+                <div className="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
                     <table className="table min-w-[1100px]">
                         <thead>
                             <tr>

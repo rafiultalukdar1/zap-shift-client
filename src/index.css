@@ -23,7 +23,7 @@ body {
 
 .menu a.active,
 .navbar-center a.active {
-  color: #CAEB66;
+  color: #9ed104;
 }
 
 .form-label {
@@ -36,4 +36,8 @@ body {
 
 button {
   cursor: pointer;
+}
+
+.dashboard-active a.active {
+  color: #9ed104;
 }
